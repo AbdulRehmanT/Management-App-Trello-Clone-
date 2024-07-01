@@ -1,40 +1,91 @@
-document.addEventListener('DOMContentLoaded', () => {
+const main = document.querySelector(".main");
+const addListBtn = document.querySelector(".add-another-list");
 
-  const form = document.querySelector('form');
-  const inputValue = document.querySelector('inputValue');
+const createTask = (event) => {
+  event.preventDefault();
 
+  const activeForm = event.target;
+  const value = activeForm.elements[0].value;
+  const parent = activeForm.parentElement;
+  const ticket = addTask(value);
 
-  const task = (value) => {
+  if (!value) return;
 
-    const newTask = document.createElement('div');
-    const taskText = document.createElement('p');
-    const text = document.createTextNode(value);
-    
+  parent.insertBefore(ticket, activeForm);
 
-    newTask.classList.add('task-list')
+  const h3Value = parent.children[0].innerText;
 
-    taskText.appendChild(text);
-    newTask.appendChild(taskText)
-
-    return newTask
+  if (!Array.isArray(savedTasks[h3Value])) {
+    savedTasks[h3Value] = [];
   }
 
-  const addTask = (event) => {
-    event.preventDefault();
+  savedTasks[h3Value].push(value);
 
-    const form = event.target
-    const value = form.elements[0].value;
-    const parent = form.parentElement;
-    const taskAdded = task(value);
+  localStorage.setItem("savedTasks", JSON.stringify(savedTasks));
 
+  activeForm.reset();
+};
 
-    parent.insertBefore(taskAdded,form)
+const createList = (listTitle) => {
+  const listDiv = document.createElement("div");
+  const listH3 = document.createElement("h3");
+  const cardForm = document.createElement("form");
+  const cardInput = document.createElement("input");
 
+  const h3List = document.createTextNode(listTitle)
 
-    form.reset()
+  listDiv.classList.add("list");
+//   listH3.classList.add("list-title");
+
+  cardInput.setAttribute("type", "text");
+  cardInput.setAttribute("placeholder", "Enter a title for this card");
+
+  listH3.setAttribute("value", listTitle)
+
+  listH3.appendChild(h3List);
+  listDiv.appendChild(h3List);
+
+  cardForm.appendChild(cardInput);
+  listDiv.appendChild(cardForm);
+
+  cardForm.addEventListener("submit", createTask);
+
+  return listDiv;
+};
+const addTask = (value) => {
+  const cardPara = document.createElement("p");
+  const cardText = document.createTextNode(value);
+
+  cardPara.setAttribute("draggable", "true");
+  cardPara.appendChild(cardText);
+
+  return cardPara;
+};
+
+let savedTasks = JSON.parse(localStorage.getItem("savedTasks")); 
+
+if (!savedTasks) {
+  savedTasks = {};
+}
+
+for (const title in savedTasks) {
+  const card = createList(title);
+
+  const arrayOfTasks = savedTasks[title];
+
+  for (let i = 0; i < arrayOfTasks.length; i++) {
+    const p = addTask(arrayOfTasks[i]);
+
+    card.insertBefore(p, card.lastElementChild);
   }
 
+  main.insertBefore(card, addListBtn);
+}
 
-  form.addEventListener('submit', addTask)
-})
+addListBtn.addEventListener("click", () => {
+  const listTitle = prompt("Enter list title");
 
+  const taskCard = createList(listTitle);
+
+  main.insertBefore(taskCard, addListBtn);
+});
