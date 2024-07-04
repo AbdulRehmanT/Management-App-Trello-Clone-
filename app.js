@@ -27,6 +27,7 @@ const createTask = (event) => {
 };
 
 const createList = (listTitle) => {
+
   const listDiv = document.createElement("div");
   const listH3 = document.createElement("h3");
   const cardForm = document.createElement("form");
@@ -35,15 +36,15 @@ const createList = (listTitle) => {
   const h3List = document.createTextNode(listTitle)
 
   listDiv.classList.add("list");
-//   listH3.classList.add("list-title");
+  listH3.classList.add("list-title");
+  cardForm.classList.add("card-form")
+  cardInput.classList.add("card-form-input")
 
   cardInput.setAttribute("type", "text");
-  cardInput.setAttribute("placeholder", "Enter a title for this card");
-
-  listH3.setAttribute("value", listTitle)
+  cardInput.setAttribute("placeholder", "+ Add a card");
 
   listH3.appendChild(h3List);
-  listDiv.appendChild(h3List);
+  listDiv.appendChild(listH3);
 
   cardForm.appendChild(cardInput);
   listDiv.appendChild(cardForm);
@@ -52,10 +53,12 @@ const createList = (listTitle) => {
 
   return listDiv;
 };
+
 const addTask = (value) => {
   const cardPara = document.createElement("p");
   const cardText = document.createTextNode(value);
 
+  cardPara.classList.add("card-task")
   cardPara.setAttribute("draggable", "true");
   cardPara.appendChild(cardText);
 
