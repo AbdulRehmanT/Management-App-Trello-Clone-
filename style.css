@@ -7,8 +7,6 @@
 body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  background: linear-gradient(135deg, #2c3875, #b04c96);
-  height: 100vh;
 }
 
 .flex {
@@ -16,12 +14,30 @@ body {
   align-items: center;
 }
 
+ol {
+  list-style-type: none;
+}
+
+header {
+  display: flex;
+  min-height: fit-content;
+  background-color: #072754;
+  padding: 6px;
+  color: #ffff;
+  justify-content: center;
+  align-items: center;
+}
+
 .main {
+  background: linear-gradient(135deg, #2c3875, #b04c96);
+  height: 100vh;
+  overflow-y: auto;
   align-items: start;
   gap: 10px;
   padding: 10px 8px;
+  padding-top: 10px;
+  padding-left: 10px;
   overflow-x: auto;
-  height: 100%;
 }
 
 .add-another-list {
@@ -36,38 +52,92 @@ body {
   flex-wrap: nowrap;
 }
 
-.list {
-  background-color: rgb(241, 242, 244);
+.input-container {
+  background-color: #f1f2f4;
   min-width: 272px;
   padding: 12px;
-  border-radius: 6px;
-  line-height: 2;
+  border-radius: 12px;
 }
 
 .list-title {
+  width: 100%;
+  padding: 6px 12px;
+  overflow: hidden;
+  border-radius: 4px;
+  color: #172b4d;
+  font-weight: 600;
+  border: none;
+  box-shadow: inset 0 0 0 1px #091e4224;
+  line-height: 1.5;
+  outline: none;
+  position: relative;
+  z-index: 1;
+}
+
+.add-list {
+  margin-top: 6px;
+  margin-right: 4px;
+  padding: 7px;
+  color: #f1f2f4;
+  background-color: #0c66e4;
+  border: none;
+  outline: none;
+  height: fit-content;
+}
+
+.delete-list {
+  padding: 6px;
+  color: #f1f2f4;
+  background-color: red;
+  border: none;
+  outline: none;
+}
+
+.card-container {
+  background-color: #f1f2f4;
+  min-width: 272px;
+  padding: 12px;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+.card-title {
   font-size: 16px;
-  padding-bottom: 3px;
+  min-height: 32px;
+  line-height: 1.5;
+}
+
+.card-textarea {
+  font-size: 16px;
+  min-height: 32px;
+  width: 100%;
+  padding: 6px;
+  overflow: hidden;
+  background: transparent;
+  box-shadow: none;
+  font-weight: 600;
+  resize: none;
+  overflow-wrap: break-word;
+}
+
+.add-card-button {
+  display: flex;
+  width: 100%;
+  padding: 7px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #696969;
+  align-items: flex-start;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  height: fit-content;
 }
 
 .card-task {
-  padding: 8px 12px 4px;
+  padding: 12px;
   background-color: #ffffff;
   border-radius: 10px;
   margin-bottom: 7px;
   box-shadow: 0px 1px 1px #091e4240;
 }
-
-.card-form-input {
-  padding: 8px;
-  min-width: 100%;
-  border-radius: 10px;
-  border-color: transparent;
-  background-color: transparent;
-}
-
-.card-form-input::placeholder {
-  color: #44546f;
-  font-weight: 600;
-  font-size: 16px;
-}
-
